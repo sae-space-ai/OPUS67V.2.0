@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  European Union Emblem — Official reproduction
+  Source: https://european-union.europa.eu/principles-countries-history/symbols/european-flag_en
+  Description: Graphical guide to the European emblem (Annex A1)
+    https://style-guide.europa.eu/en/content/-/isg/topic?identifier=annex-a1-graphics-guide-european-emblem
+  Colours:
+    Background: Pantone Reflex Blue (#003399)
+    Stars: Pantone Yellow (#FFCC00)
+  Geometry:
+    12 five-pointed stars arranged in a circle, one point facing upward.
+    The stars are positioned at equal angular intervals (30°).
+  This file is a faithful reproduction of the official EU emblem
+  for institutional/regulatory reference purposes only.
+  Use by OPUS67 does not imply endorsement, sponsorship, approval
+  or connection with the European Union or any of its institutions.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 810 540" role="img" aria-label="European Union emblem">
+  <title>European Union emblem</title>
+  <!-- Blue rectangle -->
+  <rect width="810" height="540" fill="#003399"/>
+  <!-- 12 stars -->
+  <defs>
+    <!-- Five-pointed star, outer radius 40, inner radius ~15.2 (ratio 0.38) -->
+    <!-- One point faces upward. -->
+    <polygon id="star" fill="#FFCC00" points="
+      0,-40
+      8.98,-12.36
+      38.04,-12.36
+      14.53,4.72
+      23.51,32.36
+      0,15.28
+      -23.51,32.36
+      -14.53,4.72
+      -38.04,-12.36
+      -8.98,-12.36
+    "/>
+  </defs>
+  <g transform="translate(405, 270)">
+    <!-- 12 o'clock -->
+    <use href="#star" transform="translate(0, -160)"/>
+    <!-- 1 o'clock -->
+    <use href="#star" transform="translate(80, -138.56)"/>
+    <!-- 2 o'clock -->
+    <use href="#star" transform="translate(138.56, -80)"/>
+    <!-- 3 o'clock -->
+    <use href="#star" transform="translate(160, 0)"/>
+    <!-- 4 o'clock -->
+    <use href="#star" transform="translate(138.56, 80)"/>
+    <!-- 5 o'clock -->
+    <use href="#star" transform="translate(80, 138.56)"/>
+    <!-- 6 o'clock -->
+    <use href="#star" transform="translate(0, 160)"/>
+    <!-- 7 o'clock -->
+    <use href="#star" transform="translate(-80, 138.56)"/>
+    <!-- 8 o'clock -->
+    <use href="#star" transform="translate(-138.56, 80)"/>
+    <!-- 9 o'clock -->
+    <use href="#star" transform="translate(-160, 0)"/>
+    <!-- 10 o'clock -->
+    <use href="#star" transform="translate(-138.56, -80)"/>
+    <!-- 11 o'clock -->
+    <use href="#star" transform="translate(-80, -138.56)"/>
+  </g>
+</svg>

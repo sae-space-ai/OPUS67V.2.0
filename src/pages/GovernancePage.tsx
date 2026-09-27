@@ -10,7 +10,7 @@ import { useAppStore, createAuditEvent } from '../lib/store';
 import { Card, PageHeader, EmptyState, Button, StatusBadge, ConfigBanner } from '../components/ui';
 import { generateId } from '../lib/utils';
 import type { AISystem, RiskLevel } from '../types';
-import { Plus, Trash2, Scale, AlertTriangle } from 'lucide-react';
+import { Plus, Trash2, Scale, AlertTriangle, Lock, Eye, FileText, Fingerprint, Shield } from 'lucide-react';
 
 export function GovernancePage() {
   const { state, dispatch } = useAppStore();
@@ -34,6 +34,45 @@ export function GovernancePage() {
       />
 
       <ConfigBanner message="Governance support is architecturally ready. This module provides compliance-oriented controls and evidence management. Regulatory compliance status depends on actual implementation and external audit." />
+
+      {/* ====================================================== */}
+      {/* EU REGULATORY FRAMEWORK                                */}
+      {/* ====================================================== */}
+      <div className="mb-8">
+        <h3 className="text-sm font-medium text-opus-300 mb-4 uppercase tracking-wider">
+          EU Regulatory Framework
+        </h3>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {[
+            { name: 'EU AI Act', icon: Scale, color: 'blue', status: 'Design-aligned' },
+            { name: 'GDPR / RGPD', icon: Lock, color: 'emerald', status: 'Privacy-by-design' },
+            { name: 'Human Oversight', icon: Eye, color: 'purple', status: 'Architectural support' },
+            { name: 'Transparency', icon: FileText, color: 'cyan', status: 'Audit trail' },
+            { name: 'Traceability', icon: Fingerprint, color: 'indigo', status: 'Event logging' },
+            { name: 'Risk Management', icon: AlertTriangle, color: 'amber', status: '4-level taxonomy' },
+            { name: 'Evidence', icon: Shield, color: 'green', status: 'Provenance tracking' },
+            { name: 'Auditability', icon: FileText, color: 'slate', status: 'Full audit log' },
+          ].map((item) => {
+            const colorClasses: Record<string, string> = {
+              blue: 'bg-blue-500/10 border-blue-500/20 text-blue-400',
+              emerald: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400',
+              purple: 'bg-purple-500/10 border-purple-500/20 text-purple-400',
+              cyan: 'bg-cyan-500/10 border-cyan-500/20 text-cyan-400',
+              indigo: 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400',
+              amber: 'bg-amber-500/10 border-amber-500/20 text-amber-400',
+              green: 'bg-green-500/10 border-green-500/20 text-green-400',
+              slate: 'bg-slate-500/10 border-slate-500/20 text-slate-400',
+            };
+            return (
+              <div key={item.name} className={`p-3 rounded-lg border ${colorClasses[item.color]}`}>
+                <item.icon size={16} className="mb-2" />
+                <p className="text-xs font-semibold text-opus-200 mb-1">{item.name}</p>
+                <p className="text-[10px] text-opus-400">{item.status}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
 
       {showForm && (
         <AISystemForm
