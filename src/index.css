@@ -1,1 +1,63 @@
 @import "tailwindcss";
+
+@theme {
+  --color-opus-900: #0a0a0f;
+  --color-opus-800: #12121a;
+  --color-opus-700: #1a1a2e;
+  --color-opus-600: #252540;
+  --color-opus-500: #3d3d5c;
+  --color-opus-400: #6b6b8a;
+  --color-opus-300: #9d9dba;
+  --color-opus-200: #c8c8e0;
+  --color-opus-100: #e8e8f4;
+  --color-opus-50: #f4f4fa;
+  --color-accent-500: #6366f1;
+  --color-accent-400: #818cf8;
+  --color-accent-600: #4f46e5;
+  --color-accent-700: #4338ca;
+  --color-success-500: #10b981;
+  --color-warning-500: #f59e0b;
+  --color-error-500: #ef4444;
+  --color-info-500: #3b82f6;
+}
+
+:root {
+  --sidebar-width: 260px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-opus-900);
+  color: var(--color-opus-100);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-accent-400);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-opus-800);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-opus-500);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-opus-400);
+}
