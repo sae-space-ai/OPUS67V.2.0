@@ -17,6 +17,7 @@ import { ProjectsPage } from './pages/ProjectsPage';
 import { EvidencePage } from './pages/EvidencePage';
 import { GovernancePage } from './pages/GovernancePage';
 import { SettingsPage } from './pages/SettingsPage';
+import { AILegalPage } from './pages/AILegalPage';
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
         <Routes>
           {/* Home page (no sidebar layout) */}
           <Route path="/" element={<HomePage />} />
+
+          {/* Legal pages (no sidebar layout) */}
+          <Route path="/legal/ai" element={<AILegalPage />} />
 
           {/* App pages (with sidebar layout) */}
           <Route element={<Layout />}>

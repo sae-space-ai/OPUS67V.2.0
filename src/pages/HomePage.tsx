@@ -455,6 +455,42 @@ export function HomePage() {
           </div>
 
           {/* ================================================ */}
+          {/* PROJECT STATUS                                   */}
+          {/* ================================================ */}
+          <div className="mt-8 p-6 rounded-xl bg-opus-900/40 border border-opus-700">
+            <h3 className="text-sm font-semibold text-opus-100 mb-4 flex items-center gap-2">
+              <Info size={16} className="text-accent-400" />
+              Project Status
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div className="p-3 rounded-lg bg-opus-800/60 border border-opus-700">
+                <p className="text-[10px] text-opus-400 mb-1">Version</p>
+                <p className="text-sm font-semibold text-opus-200">MVP</p>
+              </div>
+              <div className="p-3 rounded-lg bg-opus-800/60 border border-opus-700">
+                <p className="text-[10px] text-opus-400 mb-1">Product Stage</p>
+                <p className="text-sm font-semibold text-opus-200">Minimum Viable Product</p>
+              </div>
+              <div className="p-3 rounded-lg bg-opus-800/60 border border-opus-700">
+                <p className="text-[10px] text-opus-400 mb-1">Application</p>
+                <p className="text-sm font-semibold text-emerald-400">Operational</p>
+              </div>
+              <div className="p-3 rounded-lg bg-opus-800/60 border border-opus-700">
+                <p className="text-[10px] text-opus-400 mb-1">Regulatory Architecture</p>
+                <p className="text-sm font-semibold text-emerald-400">Implemented</p>
+              </div>
+              <div className="p-3 rounded-lg bg-opus-800/60 border border-opus-700">
+                <p className="text-[10px] text-opus-400 mb-1">Regulatory Assessment</p>
+                <p className="text-sm font-semibold text-amber-400">Ongoing</p>
+              </div>
+              <div className="p-3 rounded-lg bg-opus-800/60 border border-opus-700">
+                <p className="text-[10px] text-opus-400 mb-1">AI Act Classification</p>
+                <p className="text-sm font-semibold text-amber-400">Requires Assessment</p>
+              </div>
+            </div>
+          </div>
+
+          {/* ================================================ */}
           {/* REGULATORY DISCLAIMER                            */}
           {/* ================================================ */}
           <div className="mt-6 p-4 rounded-lg bg-opus-900/60 border border-opus-700">
@@ -466,6 +502,18 @@ export function HomePage() {
               by the European Union or any of its institutions. Regulatory compliance depends on actual 
               implementation, specific use cases, and external audits.
             </p>
+            <p className="text-[10px] text-opus-500 leading-relaxed mt-2">
+              References to EU legislation describe the regulatory framework considered in the design 
+              of OPUS67 and do not constitute certification, conformity assessment, endorsement or 
+              approval by the European Union, the European Commission or a supervisory authority.
+            </p>
+            <Link
+              to="/legal/ai"
+              className="inline-flex items-center gap-1 text-[10px] text-accent-400 hover:text-accent-300 mt-2"
+            >
+              Read full AI Legal Notice
+              <ArrowRight size={10} />
+            </Link>
           </div>
         </div>
       </section>
@@ -582,6 +630,32 @@ export function HomePage() {
               Compliance status of individual controls is documented in the Governance
               module with verifiable evidence.
             </p>
+            <p className="text-[10px] text-opus-500 leading-relaxed text-center max-w-3xl mx-auto mt-2">
+              References to EU legislation describe the regulatory framework considered in the design 
+              of OPUS67 and do not constitute certification, conformity assessment, endorsement or 
+              approval by the European Union, the European Commission or a supervisory authority.
+            </p>
+          </div>
+
+          {/* Author & Development */}
+          <div className="pt-4 mt-4 border-t border-opus-700/30">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-accent-500/10 border border-accent-500/30 flex items-center justify-center">
+                  <span className="text-xs font-bold text-accent-400">MG</span>
+                </div>
+                <div className="text-left">
+                  <p className="text-xs font-medium text-opus-300">Prof. Manuel Gago Fernández</p>
+                  <p className="text-[10px] text-opus-500">Author & Developer</p>
+                </div>
+              </div>
+              <Link
+                to="/legal/ai"
+                className="text-[10px] text-opus-400 hover:text-opus-200 transition-colors"
+              >
+                AI Legal Notice →
+              </Link>
+            </div>
           </div>
         </div>
       </footer>
