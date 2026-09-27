@@ -1,19 +1,58 @@
 /**
  * OPUS67 — Shared UI Components
+ * 
+ * Uses OPUS67 SPECTRAL SYSTEM design tokens.
  */
 
 import type { ReactNode } from 'react';
-import { getStatusColor, capitalize } from '../../lib/utils';
+import { capitalize } from '../../lib/utils';
 
 // ============================================================
-// Status Badge
+// Status Badge — SPECTRAL SYSTEM
 // ============================================================
 
 export function StatusBadge({ status }: { status: string }) {
-  const colorClasses = getStatusColor(status);
+  const colorMap: Record<string, string> = {
+    active: 'bg-spectral/10 text-spectral border-spectral/30',
+    available: 'bg-spectral/10 text-spectral border-spectral/30',
+    operational: 'bg-spectral/10 text-spectral border-spectral/30',
+    configured: 'bg-spectral/10 text-spectral border-spectral/30',
+    connected: 'bg-spectral/10 text-spectral border-spectral/30',
+    approved: 'bg-spectral/10 text-spectral border-spectral/30',
+    
+    draft: 'bg-graphite-light text-steel border-graphite-lighter',
+    paused: 'bg-amber/10 text-amber border-amber/30',
+    configuration_required: 'bg-amber/10 text-amber border-amber/30',
+    under_review: 'bg-amber/10 text-amber border-amber/30',
+    ongoing: 'bg-amber/10 text-amber border-amber/30',
+    
+    disabled: 'bg-coral/10 text-coral border-coral/30',
+    error: 'bg-coral/10 text-coral border-coral/30',
+    failed: 'bg-coral/10 text-coral border-coral/30',
+    rejected: 'bg-coral/10 text-coral border-coral/30',
+    suspended: 'bg-coral/10 text-coral border-coral/30',
+    unacceptable: 'bg-coral/10 text-coral border-coral/30',
+    
+    running: 'bg-ion/10 text-ion border-ion/30',
+    queued: 'bg-graphite-light text-steel border-graphite-lighter',
+    cancelled: 'bg-graphite-light text-steel border-graphite-lighter',
+    
+    unverified: 'bg-graphite-light text-steel border-graphite-lighter',
+    system_generated: 'bg-ion/10 text-ion border-ion/30',
+    source_verified: 'bg-ion/10 text-ion border-ion/30',
+    human_reviewed: 'bg-ultra/10 text-ultra border-ultra/30',
+    
+    registered: 'bg-graphite-light text-steel border-graphite-lighter',
+    minimal: 'bg-spectral/10 text-spectral border-spectral/30',
+    limited: 'bg-amber/10 text-amber border-amber/30',
+    high: 'bg-coral/10 text-coral border-coral/30',
+  };
+
+  const colorClasses = colorMap[status] || 'bg-graphite-light text-steel border-graphite-lighter';
+
   return (
     <span
-      className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${colorClasses}`}
+      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider border ${colorClasses}`}
     >
       {capitalize(status)}
     </span>
@@ -21,7 +60,7 @@ export function StatusBadge({ status }: { status: string }) {
 }
 
 // ============================================================
-// Empty State
+// Empty State — SPECTRAL SYSTEM
 // ============================================================
 
 export function EmptyState({
@@ -35,9 +74,9 @@ export function EmptyState({
 }) {
   return (
     <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
-      <div className="w-12 h-12 rounded-full bg-opus-700 flex items-center justify-center mb-4">
+      <div className="w-12 h-12 rounded-full bg-graphite-light border border-graphite-lighter flex items-center justify-center mb-4">
         <svg
-          className="w-6 h-6 text-opus-400"
+          className="w-6 h-6 text-steel"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -50,15 +89,15 @@ export function EmptyState({
           />
         </svg>
       </div>
-      <h3 className="text-sm font-medium text-opus-200 mb-1">{title}</h3>
-      <p className="text-sm text-opus-400 max-w-sm">{description}</p>
+      <h3 className="text-sm font-medium text-ice mb-1">{title}</h3>
+      <p className="text-sm text-steel max-w-sm">{description}</p>
       {action && <div className="mt-4">{action}</div>}
     </div>
   );
 }
 
 // ============================================================
-// Card
+// Card — SPECTRAL SYSTEM
 // ============================================================
 
 export function Card({
@@ -70,7 +109,7 @@ export function Card({
 }) {
   return (
     <div
-      className={`bg-opus-800 border border-opus-700 rounded-xl ${className}`}
+      className={`spectral-card ${className}`}
     >
       {children}
     </div>
@@ -78,7 +117,7 @@ export function Card({
 }
 
 // ============================================================
-// Page Header
+// Page Header — SPECTRAL SYSTEM
 // ============================================================
 
 export function PageHeader({
@@ -93,9 +132,9 @@ export function PageHeader({
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
       <div>
-        <h2 className="text-xl font-semibold text-opus-100">{title}</h2>
+        <h2 className="text-xl font-bold text-ice">{title}</h2>
         {description && (
-          <p className="text-sm text-opus-400 mt-1">{description}</p>
+          <p className="text-sm text-steel mt-1">{description}</p>
         )}
       </div>
       {action && <div>{action}</div>}
@@ -104,7 +143,7 @@ export function PageHeader({
 }
 
 // ============================================================
-// Button
+// Button — SPECTRAL SYSTEM
 // ============================================================
 
 export function Button({
@@ -124,13 +163,13 @@ export function Button({
   type?: 'button' | 'submit' | 'reset';
   className?: string;
 }) {
-  const baseClasses = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-2 focus-visible:ring-offset-opus-900';
+  const baseClasses = 'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spectral focus-visible:ring-offset-2 focus-visible:ring-offset-obsidian';
 
   const variants = {
-    primary: 'bg-accent-500 text-white hover:bg-accent-600 disabled:opacity-50',
-    secondary: 'bg-opus-700 text-opus-200 hover:bg-opus-600 border border-opus-600 disabled:opacity-50',
-    ghost: 'text-opus-300 hover:text-opus-100 hover:bg-opus-700 disabled:opacity-50',
-    danger: 'bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20 disabled:opacity-50',
+    primary: 'bg-spectral text-obsidian hover:bg-spectral-dim disabled:opacity-50',
+    secondary: 'bg-graphite-light text-ice hover:bg-graphite-lighter border border-graphite-lighter disabled:opacity-50',
+    ghost: 'text-steel hover:text-ice hover:bg-graphite-light disabled:opacity-50',
+    danger: 'bg-coral/10 text-coral hover:bg-coral/20 border border-coral/30 disabled:opacity-50',
   };
 
   const sizes = {
@@ -151,7 +190,7 @@ export function Button({
 }
 
 // ============================================================
-// Stat Card
+// Stat Card — SPECTRAL SYSTEM
 // ============================================================
 
 export function StatCard({
@@ -166,23 +205,23 @@ export function StatCard({
   return (
     <Card className="p-4">
       <div className="flex items-center justify-between">
-        <span className="text-xs text-opus-400 uppercase tracking-wider">{label}</span>
+        <span className="text-xs text-steel uppercase tracking-wider">{label}</span>
         {status && <StatusBadge status={status} />}
       </div>
       <div className="mt-2">
-        <span className="text-2xl font-semibold text-opus-100">{value}</span>
+        <span className="text-2xl font-bold text-ice">{value}</span>
       </div>
     </Card>
   );
 }
 
 // ============================================================
-// Configuration Required Banner
+// Configuration Required Banner — SPECTRAL SYSTEM
 // ============================================================
 
 export function ConfigBanner({ message }: { message: string }) {
   return (
-    <div className="flex items-center gap-3 p-4 rounded-lg bg-amber-500/5 border border-amber-500/20 text-amber-300 text-sm">
+    <div className="flex items-center gap-3 p-4 rounded-lg bg-amber/5 border border-amber/30 text-amber text-sm">
       <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
       </svg>

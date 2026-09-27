@@ -2,11 +2,14 @@
  * OPUS67 — Layout Component
  * 
  * Main application layout with sidebar navigation.
+ * Uses OPUS67 SPECTRAL SYSTEM visual design.
  * Responsive: collapses to hamburger menu on mobile.
  */
 
 import { useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import { OpusLogo } from './OpusLogo';
+import { SpectralLine } from './SpectralLine';
 import {
   LayoutDashboard,
   Bot,
@@ -41,7 +44,7 @@ export function Layout() {
   );
 
   return (
-    <div className="min-h-screen bg-opus-900 flex">
+    <div className="min-h-screen bg-obsidian flex">
       {/* Mobile sidebar overlay */}
       {sidebarOpen && (
         <div
@@ -54,7 +57,7 @@ export function Layout() {
       {/* Sidebar */}
       <aside
         className={`
-          fixed inset-y-0 left-0 z-50 w-[260px] bg-opus-800 border-r border-opus-700
+          fixed inset-y-0 left-0 z-50 w-[260px] bg-carbon border-r border-graphite-lighter
           transform transition-transform duration-200 ease-in-out
           lg:translate-x-0 lg:static lg:z-auto
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
@@ -63,17 +66,12 @@ export function Layout() {
       >
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="flex items-center justify-between h-16 px-6 border-b border-opus-700">
+          <div className="flex items-center justify-between h-16 px-6 border-b border-graphite-lighter">
             <NavLink to="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-accent-500 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">O</span>
-              </div>
-              <span className="text-lg font-semibold text-opus-100 tracking-tight">
-                OPUS67
-              </span>
+              <OpusLogo variant="compact" size="md" />
             </NavLink>
             <button
-              className="lg:hidden text-opus-400 hover:text-opus-100"
+              className="lg:hidden text-steel hover:text-ice"
               onClick={() => setSidebarOpen(false)}
               aria-label="Close sidebar"
             >
@@ -94,15 +92,15 @@ export function Layout() {
                     flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium
                     transition-colors duration-150
                     ${isActive
-                      ? 'bg-accent-500/10 text-accent-400 border border-accent-500/20'
-                      : 'text-opus-300 hover:text-opus-100 hover:bg-opus-700/50'
+                      ? 'bg-spectral/10 text-spectral border border-spectral/30'
+                      : 'text-steel hover:text-ice hover:bg-graphite-light'
                     }
                   `}
                 >
                   <item.icon size={18} />
                   <span>{item.name}</span>
                   {isActive && (
-                    <ChevronRight size={14} className="ml-auto text-accent-400" />
+                    <ChevronRight size={14} className="ml-auto text-spectral" />
                   )}
                 </NavLink>
               );
@@ -110,12 +108,12 @@ export function Layout() {
           </nav>
 
           {/* Footer */}
-          <div className="px-4 py-3 border-t border-opus-700">
-            <div className="flex items-center gap-2 text-xs text-opus-400">
-              <div className="w-2 h-2 rounded-full bg-emerald-400" />
+          <div className="px-4 py-3 border-t border-graphite-lighter">
+            <div className="flex items-center gap-2 text-xs text-steel">
+              <div className="w-2 h-2 rounded-full bg-spectral status-pulse" />
               <span>System operational</span>
             </div>
-            <p className="text-xs text-opus-500 mt-1">v0.1.0</p>
+            <p className="text-xs text-muted mt-1">v0.1.0</p>
           </div>
         </div>
       </aside>
@@ -123,24 +121,24 @@ export function Layout() {
       {/* Main content */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top bar */}
-        <header className="h-16 flex items-center justify-between px-4 lg:px-8 border-b border-opus-700 bg-opus-800/50 backdrop-blur-sm">
+        <header className="h-16 flex items-center justify-between px-4 lg:px-8 border-b border-graphite-lighter bg-carbon/50 backdrop-blur-sm">
           <div className="flex items-center gap-4">
             <button
-              className="lg:hidden text-opus-400 hover:text-opus-100"
+              className="lg:hidden text-steel hover:text-ice"
               onClick={() => setSidebarOpen(true)}
               aria-label="Open sidebar"
             >
               <Menu size={20} />
             </button>
             <div>
-              <h1 className="text-lg font-semibold text-opus-100">
+              <h1 className="text-lg font-semibold text-ice">
                 {currentPage?.name || 'OPUS67'}
               </h1>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 text-xs text-opus-400 bg-opus-700/50 px-3 py-1.5 rounded-full">
-              <div className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+            <div className="hidden sm:flex items-center gap-2 text-xs text-steel bg-graphite-light px-3 py-1.5 rounded-full border border-graphite-lighter">
+              <div className="w-1.5 h-1.5 rounded-full bg-amber status-pulse" />
               <span>Providers not configured</span>
             </div>
           </div>
