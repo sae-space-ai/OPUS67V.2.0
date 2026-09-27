@@ -46,6 +46,12 @@ export type AuditAction =
   | 'AI_SYSTEM_REGISTERED'
   | 'CONTROL_CREATED'
   | 'ASSESSMENT_CREATED'
+  // AI Execution
+  | 'AI_EXECUTION_COMPLETED'
+  | 'AI_EXECUTION_FAILED'
+  // Billing
+  | 'USAGE_RECORDED'
+  | 'CHARGE_CREATED'
   // System
   | 'CONFIG_CHANGED'
   | 'USER_LOGIN'

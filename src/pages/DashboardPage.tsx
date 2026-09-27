@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { useAppStore } from '../lib/store';
 import { OpusLogo } from '../components/OpusLogo';
 import { SpectralLine } from '../components/SpectralLine';
+import { SystemStatus } from '../components/SystemStatus';
 import {
   Bot,
   Wrench,
@@ -18,8 +19,6 @@ import {
   Shield,
   Landmark,
   Activity,
-  Database,
-  Cloud,
   ArrowRight,
   AlertCircle,
   CheckCircle2,
@@ -80,33 +79,8 @@ export function DashboardPage() {
     },
   ];
 
-  const infrastructureStatus = [
-    {
-      name: 'Application',
-      status: state.systemStatus.status === 'ok' ? 'ACTIVE' : 'DEGRADED',
-      icon: Activity,
-      detail: `v${state.systemStatus.version}`,
-      color: state.systemStatus.status === 'ok' ? 'spectral' : 'coral',
-    },
-    {
-      name: 'Database',
-      status: state.systemStatus.modules.database === 'connected' ? 'CONNECTED' : 'NOT CONFIGURED',
-      icon: Database,
-      detail: state.systemStatus.modules.database === 'not_configured'
-        ? 'PostgreSQL connection required'
-        : 'Connected',
-      color: state.systemStatus.modules.database === 'connected' ? 'spectral' : 'amber',
-    },
-    {
-      name: 'AI Providers',
-      status: state.systemStatus.modules.providers === 'configured' ? 'CONFIGURED' : 'NOT CONFIGURED',
-      icon: Cloud,
-      detail: state.systemStatus.modules.providers === 'not_configured'
-        ? 'Set provider environment variables'
-        : 'Active',
-      color: state.systemStatus.modules.providers === 'configured' ? 'spectral' : 'amber',
-    },
-  ];
+  // System status is now handled by SystemStatus component
+  // which shows real database and AI provider status
 
   return (
     <div className="min-h-full">
@@ -129,24 +103,8 @@ export function DashboardPage() {
           </div>
         </div>
 
-        {/* Infrastructure Status Bar */}
-        <div className="flex flex-wrap gap-3">
-          {infrastructureStatus.map((item) => (
-            <div
-              key={item.name}
-              className="flex items-center gap-3 px-4 py-2 rounded-lg bg-graphite-light border border-graphite-lighter"
-            >
-              <item.icon size={16} className={`text-${item.color}`} />
-              <div className="flex-1 min-w-0">
-                <p className="text-xs font-medium text-ice">{item.name}</p>
-                <p className="text-[10px] text-steel truncate">{item.detail}</p>
-              </div>
-              <span className={`text-[10px] font-semibold text-${item.color} uppercase tracking-wider`}>
-                {item.status}
-              </span>
-            </div>
-          ))}
-        </div>
+        {/* System Status - Real Database & AI Provider Status */}
+        <SystemStatus />
       </div>
 
       <SpectralLine variant="accent" className="mb-8" />
