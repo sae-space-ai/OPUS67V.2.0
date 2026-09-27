@@ -65,6 +65,7 @@ export interface WorkflowStep {
   output?: Record<string, unknown>;
   dependsOn: string[];
   errorPolicy: 'stop' | 'retry' | 'skip' | 'fallback';
+  requiresHumanApproval?: boolean;
 }
 
 export interface Workflow {

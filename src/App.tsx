@@ -3,10 +3,13 @@
  * 
  * Entry point with routing configuration.
  * Uses React Router for client-side navigation.
+ * Includes ErrorBoundary for error handling and CommandPalette for keyboard navigation.
  */
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './lib/store';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { CommandPalette } from './components/CommandPalette';
 import { Layout } from './components/Layout';
 import { HomePage } from './pages/HomePage';
 import { DashboardPage } from './pages/DashboardPage';
@@ -21,29 +24,32 @@ import { AILegalPage } from './pages/AILegalPage';
 
 function App() {
   return (
-    <AppProvider>
-      <BrowserRouter>
-        <Routes>
-          {/* Home page (no sidebar layout) */}
-          <Route path="/" element={<HomePage />} />
+    <ErrorBoundary>
+      <AppProvider>
+        <BrowserRouter>
+          <CommandPalette />
+          <Routes>
+            {/* Home page (no sidebar layout) */}
+            <Route path="/" element={<HomePage />} />
 
-          {/* Legal pages (no sidebar layout) */}
-          <Route path="/legal/ai" element={<AILegalPage />} />
+            {/* Legal pages (no sidebar layout) */}
+            <Route path="/legal/ai" element={<AILegalPage />} />
 
-          {/* App pages (with sidebar layout) */}
-          <Route element={<Layout />}>
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/agents" element={<AgentsPage />} />
-            <Route path="/tools" element={<ToolsPage />} />
-            <Route path="/workflows" element={<WorkflowsPage />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/evidence" element={<EvidencePage />} />
-            <Route path="/governance" element={<GovernancePage />} />
-            <Route path="/settings" element={<SettingsPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </AppProvider>
+            {/* App pages (with sidebar layout) */}
+            <Route element={<Layout />}>
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/agents" element={<AgentsPage />} />
+              <Route path="/tools" element={<ToolsPage />} />
+              <Route path="/workflows" element={<WorkflowsPage />} />
+              <Route path="/projects" element={<ProjectsPage />} />
+              <Route path="/evidence" element={<EvidencePage />} />
+              <Route path="/governance" element={<GovernancePage />} />
+              <Route path="/settings" element={<SettingsPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </AppProvider>
+    </ErrorBoundary>
   );
 }
 
