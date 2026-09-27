@@ -348,6 +348,50 @@ export function getDatabaseHealth(): DatabaseHealth {
 }
 
 /**
+ * Get Supabase client directly
+ * Used by auth service and other modules that need direct access
+ */
+export function getSupabaseClient(): SupabaseClient | null {
+  return database.getClient();
+}
+
+// Create a direct client export for auth
+// This client has auth enabled (persistSession, autoRefreshToken)
+let authClient: SupabaseClient | null = null;
+
+export function getAuthClient(): SupabaseClient {
+  if (authClient) return authClient;
+  
+  const config = getDatabaseConfig();
+  
+  if (!config.supabaseUrl || !config.supabaseAnonKey) {
+    throw new Error('Supabase not configured for auth');
+  }
+  
+  authClient = createClient(config.supabaseUrl, config.supabaseAnonKey, {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: true,
+    },
+  });
+  
+  return authClient;
+}
+
+// Export supabase as the auth client for convenience
+export const supabase = {
+  auth: {
+    getSession: () => getAuthClient().auth.getSession(),
+    getUser: () => getAuthClient().auth.getUser(),
+    signInWithOAuth: (params: any) => getAuthClient().auth.signInWithOAuth(params),
+    signOut: () => getAuthClient().auth.signOut(),
+    refreshSession: () => getAuthClient().auth.refreshSession(),
+    onAuthStateChange: (callback: any) => getAuthClient().auth.onAuthStateChange(callback),
+  },
+};
+
+/**
  * Refresh database health check
  */
 export async function refreshDatabaseHealth(): Promise<DatabaseHealth> {

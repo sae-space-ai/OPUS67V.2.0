@@ -2,6 +2,6 @@
  * OPUS67 — Auth Module Exports
  */
 
-export { authService, getOAuthConfigStatus } from './service';
+export { authService, getAuthConfig, isAuthOperational } from './supabase-auth';
 export { AuthProvider, useAuth } from './context';
-export type { AuthService, OAuthConfigStatus } from './service';
+export type { AuthStatus, AuthConfig } from './supabase-auth';

@@ -42,6 +42,7 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { Layout } from './components/Layout';
 import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
+import { AuthCallbackPage } from './pages/AuthCallbackPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { TermsPage } from './pages/TermsPage';
 import { DashboardPage } from './pages/DashboardPage';
@@ -63,13 +64,13 @@ function App() {
           <BrowserRouter>
             <CommandPalette />
             <Routes>
-              {/* PUBLIC ROUTES */}
-              <Route path="/" element={<HomePage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/privacy" element={<PrivacyPage />} />
-              <Route path="/terms" element={<TermsPage />} />
-              <Route path="/legal/ai" element={<AILegalPage />} />
-
+            {/* PUBLIC ROUTES */}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/auth/callback" element={<AuthCallbackPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/legal/ai" element={<AILegalPage />} />
               {/* PROTECTED ROUTES */}
               <Route
                 element={

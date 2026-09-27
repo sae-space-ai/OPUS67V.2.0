@@ -1,59 +1,55 @@
 /**
  * OPUS67 — Login Page
  * 
- * Authentication page with Google and GitHub OAuth.
+ * Authentication page with Google and GitHub OAuth via Supabase Auth.
  * 
- * IMPORTANT — HONEST STATES:
- * 
- * This page shows OAuth buttons, but they will only work when:
- * 1. Backend server is configured
- * 2. OAuth credentials are set in environment variables
- * 3. Database is connected
- * 
- * If not configured, buttons show "CONFIGURATION REQUIRED" state.
- * No fake authentication flows.
+ * IMPLEMENTATION:
+ * - Uses Supabase Auth for OAuth flows
+ * - Real authentication when Supabase is configured
+ * - Graceful degradation when not configured
+ * - No sensitive information exposed to users
  * 
  * CURRENT STATUS:
  * - UI implemented ✅
  * - SPECTRAL SYSTEM design ✅
  * - OAuth buttons ✅
- * - Configuration check ✅
- * - Real authentication ❌ (requires backend)
+ * - Supabase Auth integration ✅
+ * - Real authentication ✅ (requires Supabase configuration)
  */
 
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../lib/auth/context';
-import { getOAuthConfigStatus, type OAuthConfigStatus } from '../lib/auth/service';
+import { getAuthConfig, type AuthConfig } from '../lib/auth';
 import { OpusLogo } from '../components/OpusLogo';
 import { SpectralLine } from '../components/SpectralLine';
-import { AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
+import { AlertCircle, Loader2 } from 'lucide-react';
 
 export function LoginPage() {
-  const { loginWithOAuth, isAuthenticated, isLoading } = useAuth();
+  const { loginWithOAuth, isAuthenticated, isLoading: authLoading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   
-  const [oauthConfig, setOAuthConfig] = useState<OAuthConfigStatus | null>(null);
+  const [authConfig, setAuthConfig] = useState<AuthConfig | null>(null);
   const [isConfigLoading, setIsConfigLoading] = useState(true);
   const [loginError, setLoginError] = useState<string | null>(null);
 
   // Redirect if already authenticated
   useEffect(() => {
-    if (isAuthenticated && !isLoading) {
+    if (isAuthenticated && !authLoading) {
       const from = (location.state as any)?.from?.pathname || '/dashboard';
       navigate(from, { replace: true });
     }
-  }, [isAuthenticated, isLoading, navigate, location]);
+  }, [isAuthenticated, authLoading, navigate, location]);
 
-  // Check OAuth configuration
+  // Check auth configuration
   useEffect(() => {
     async function checkConfig() {
       try {
-        const config = await getOAuthConfigStatus();
-        setOAuthConfig(config);
+        const config = await getAuthConfig();
+        setAuthConfig(config);
       } catch (error) {
-        console.error('[LoginPage] Failed to check OAuth config:', error);
+        console.error('[LoginPage] Failed to check auth config:', error);
       } finally {
         setIsConfigLoading(false);
       }
@@ -79,7 +75,7 @@ export function LoginPage() {
   }
 
   // Show loading while checking auth
-  if (isLoading) {
+  if (authLoading || isConfigLoading) {
     return (
       <div className="min-h-screen bg-obsidian flex items-center justify-center">
         <div className="text-center">
@@ -125,12 +121,12 @@ export function LoginPage() {
             {/* Google Login */}
             <button
               onClick={() => handleLogin('google')}
-              disabled={!oauthConfig?.google.configured || isConfigLoading}
+              disabled={!authConfig?.googleConfigured || isConfigLoading}
               className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-graphite-light border border-graphite-lighter rounded-lg text-ice font-medium hover:bg-graphite-lighter hover:border-spectral/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isConfigLoading ? (
                 <Loader2 size={20} className="animate-spin" />
-              ) : oauthConfig?.google.configured ? (
+              ) : authConfig?.googleConfigured ? (
                 <>
                   <svg className="w-5 h-5" viewBox="0 0 24 24">
                     <path
@@ -163,12 +159,12 @@ export function LoginPage() {
             {/* GitHub Login */}
             <button
               onClick={() => handleLogin('github')}
-              disabled={!oauthConfig?.github.configured || isConfigLoading}
+              disabled={!authConfig?.githubConfigured || isConfigLoading}
               className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-graphite-light border border-graphite-lighter rounded-lg text-ice font-medium hover:bg-graphite-lighter hover:border-spectral/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isConfigLoading ? (
                 <Loader2 size={20} className="animate-spin" />
-              ) : oauthConfig?.github.configured ? (
+              ) : authConfig?.githubConfigured ? (
                 <>
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
@@ -184,24 +180,15 @@ export function LoginPage() {
             </button>
           </div>
 
-          {/* Configuration Status */}
-          {!isConfigLoading && (!oauthConfig?.google.configured || !oauthConfig?.github.configured) && (
+          {/* Configuration Status - User-friendly message */}
+          {!isConfigLoading && authConfig?.status !== 'OPERATIONAL' && (
             <div className="mt-6 p-4 rounded-lg bg-amber/5 border border-amber/30">
               <div className="flex items-start gap-3">
                 <AlertCircle size={20} className="text-amber flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
-                  <p className="text-sm text-amber font-medium">Authentication Not Configured</p>
+                  <p className="text-sm text-amber font-medium">Sign-in is temporarily unavailable</p>
                   <p className="text-xs text-steel mt-1 leading-relaxed">
-                    OAuth authentication requires backend configuration. Please set up:
-                  </p>
-                  <ul className="text-xs text-steel mt-2 space-y-1 list-disc list-inside">
-                    <li>Backend server with OAuth endpoints</li>
-                    <li>Google OAuth credentials (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)</li>
-                    <li>GitHub OAuth credentials (GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET)</li>
-                    <li>Database for users, accounts, sessions</li>
-                  </ul>
-                  <p className="text-xs text-muted mt-2">
-                    See <code className="text-spectral">docs/AUTH-SETUP.md</code> for setup instructions.
+                    Authentication services are being configured. Please check back later or contact support if the problem persists.
                   </p>
                 </div>
               </div>

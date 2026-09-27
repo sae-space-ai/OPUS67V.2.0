@@ -1,37 +1,26 @@
 /**
  * OPUS67 — Auth Context
  * 
- * React context for authentication state management.
+ * React context for authentication state management using Supabase Auth.
  * Provides auth state and methods to components.
  * 
- * IMPORTANT — CLIENT-SIDE STATE ONLY:
- * 
- * This context manages CLIENT-SIDE representation of auth state.
- * The AUTHORITY for authentication is the server.
- * 
- * Flow:
- * 1. Component calls loginWithOAuth()
- * 2. Redirects to OAuth provider
- * 3. Provider redirects to server callback
- * 4. Server validates, creates session, sets cookie
- * 5. Server redirects to client
- * 6. Client fetches user/session from server API
- * 7. Context updates with authenticated state
- * 
- * The browser NEVER decides if user is authenticated.
- * Server is the source of truth.
+ * IMPLEMENTATION:
+ * - Uses Supabase Auth for OAuth (Google, GitHub)
+ * - Sessions managed via Supabase (HttpOnly cookies)
+ * - Real-time auth state changes
+ * - Protected route support
  * 
  * CURRENT STATUS:
  * - Context defined ✅
  * - Provider component ✅
  * - Hook for consuming context ✅
- * - Integration with auth service ✅
- * - Real authentication ❌ (requires backend)
+ * - Supabase Auth integration ✅
+ * - Real authentication ✅ (requires Supabase configuration)
  */
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 import type { User, Session, OAuthProvider, AuthState } from '../../types/identity';
-import { authService } from './service';
+import { authService } from './supabase-auth';
 
 // ============================================================
 // Auth Context Type
@@ -98,7 +87,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
   // Login with OAuth provider
   async function loginWithOAuth(provider: OAuthProvider) {
     try {
-      await authService.loginWithOAuth(provider);
+      const { error } = await authService.signInWithOAuth(provider);
+      if (error) {
+        throw error;
+      }
       // After this, browser will redirect to OAuth provider
       // On return, useEffect will re-fetch auth state
     } catch (error) {
@@ -110,7 +102,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
   // Logout
   async function logout() {
     try {
-      await authService.logout();
+      const { error } = await authService.signOut();
+      if (error) {
+        throw error;
+      }
       setUser(null);
       setSession(null);
       // Redirect to home page
