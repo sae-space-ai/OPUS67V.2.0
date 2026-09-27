@@ -103,6 +103,12 @@ export function HomePage() {
               Build, operate, and audit intelligent systems with full traceability.
             </p>
 
+            {/* MVP Badge */}
+            <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-500/10 border border-accent-500/30">
+              <span className="text-xs font-semibold text-accent-400 uppercase tracking-wider">MVP</span>
+              <span className="text-xs text-opus-400">Minimum Viable Product</span>
+            </div>
+
             <div className="flex flex-col sm:flex-row gap-3 mt-8">
               <Link
                 to="/dashboard"
@@ -158,6 +164,146 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* EU Compliance Section */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div className="p-8 rounded-2xl bg-gradient-to-br from-blue-900/20 via-opus-800 to-opus-800 border border-blue-500/20">
+          <div className="flex flex-col lg:flex-row items-start gap-8">
+            {/* EU Flag & Badges */}
+            <div className="flex flex-col items-center gap-4 lg:min-w-[200px]">
+              {/* EU Flag */}
+              <div className="w-24 h-16 rounded-lg bg-blue-600 flex items-center justify-center relative overflow-hidden shadow-lg">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="relative">
+                    {/* Circle of stars */}
+                    {[...Array(12)].map((_, i) => {
+                      const angle = (i * 30 - 90) * (Math.PI / 180);
+                      const x = Math.cos(angle) * 20;
+                      const y = Math.sin(angle) * 20;
+                      return (
+                        <div
+                          key={i}
+                          className="absolute w-1.5 h-1.5 bg-yellow-400"
+                          style={{
+                            left: `${x + 24}px`,
+                            top: `${y + 16}px`,
+                            clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
+                          }}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Compliance Badges */}
+              <div className="flex flex-col gap-2 w-full">
+                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-500/10 border border-blue-500/30">
+                  <Shield size={14} className="text-blue-400" />
+                  <span className="text-xs font-medium text-blue-300">EU AI Act</span>
+                </div>
+                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
+                  <Lock size={14} className="text-emerald-400" />
+                  <span className="text-xs font-medium text-emerald-300">RGPD/GDPR</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Compliance Info */}
+            <div className="flex-1">
+              <h2 className="text-2xl font-bold text-opus-100 mb-2">
+                Cumplimiento Normativo Europeo
+              </h2>
+              <p className="text-sm text-opus-300 mb-6 leading-relaxed">
+                OPUS67 ha sido diseñado y desarrollado para cumplir con los requisitos de la normativa europea 
+                de inteligencia artificial y protección de datos, garantizando sistemas de IA seguros, 
+                transparentes y respetuosos con los derechos fundamentales.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* AI Act */}
+                <div className="p-4 rounded-lg bg-opus-800/50 border border-opus-700">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-opus-100 mb-1">EU AI Act</h3>
+                      <p className="text-xs text-opus-400 leading-relaxed">
+                        Arquitectura preparada para clasificación de riesgos, supervisión humana, 
+                        transparencia y documentación técnica según el Reglamento de IA de la UE.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* GDPR/RGPD */}
+                <div className="p-4 rounded-lg bg-opus-800/50 border border-opus-700">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+                      <Lock size={18} className="text-emerald-400" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-opus-100 mb-1">RGPD/GDPR</h3>
+                      <p className="text-xs text-opus-400 leading-relaxed">
+                        Diseño orientado a la protección de datos: minimización, consentimiento, 
+                        derecho al olvido, portabilidad y privacidad por defecto.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Risk Classification */}
+                <div className="p-4 rounded-lg bg-opus-800/50 border border-opus-700">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                        <line x1="12" y1="9" x2="12" y2="13" />
+                        <line x1="12" y1="17" x2="12.01" y2="17" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-opus-100 mb-1">Clasificación de Riesgos</h3>
+                      <p className="text-xs text-opus-400 leading-relaxed">
+                        Sistema de clasificación en 4 niveles: mínimo, limitado, alto e inaceptable, 
+                        con controles específicos para cada categoría.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Human Oversight */}
+                <div className="p-4 rounded-lg bg-opus-800/50 border border-opus-700">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center flex-shrink-0">
+                      <Eye size={18} className="text-purple-400" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-opus-100 mb-1">Supervisión Humana</h3>
+                      <p className="text-xs text-opus-400 leading-relaxed">
+                        Registros de revisión humana, trazabilidad de decisiones, 
+                        evidencia verificable y capacidad de intervención manual.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Compliance Note */}
+              <div className="mt-6 p-4 rounded-lg bg-opus-700/30 border border-opus-600">
+                <p className="text-xs text-opus-400 leading-relaxed">
+                  <span className="font-semibold text-opus-300">Nota:</span> OPUS67 proporciona herramientas y arquitectura 
+                  orientadas al cumplimiento normativo. La conformidad final depende de la configuración, 
+                  procesos organizativos y auditorías externas según el caso de uso específico.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Modules */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <h2 className="text-2xl font-semibold text-opus-100 mb-2">Platform Modules</h2>
@@ -193,16 +339,40 @@ export function HomePage() {
 
       {/* Footer */}
       <footer className="border-t border-opus-700 py-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded bg-accent-500 flex items-center justify-center">
-              <span className="text-white font-bold text-xs">O</span>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded bg-accent-500 flex items-center justify-center">
+                <span className="text-white font-bold text-xs">O</span>
+              </div>
+              <span className="text-sm font-medium text-opus-300">OPUS67</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-accent-500/10 border border-accent-500/30 text-accent-400 font-medium">
+                MVP
+              </span>
             </div>
-            <span className="text-sm font-medium text-opus-300">OPUS67</span>
+            <p className="text-xs text-opus-500">
+              AI Systems Platform — v0.1.0
+            </p>
           </div>
-          <p className="text-xs text-opus-500">
-            AI Systems Platform — v0.1.0 — Architecture ready for production deployment
-          </p>
+          
+          {/* Compliance Footer */}
+          <div className="pt-6 border-t border-opus-700/50">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <Shield size={14} className="text-blue-400" />
+                  <span className="text-xs text-opus-400">EU AI Act Compliant Architecture</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Lock size={14} className="text-emerald-400" />
+                  <span className="text-xs text-opus-400">RGPD/GDPR Ready</span>
+                </div>
+              </div>
+              <p className="text-xs text-opus-500 text-center sm:text-right">
+                Diseñado para cumplir con la normativa europea de IA y protección de datos
+              </p>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
