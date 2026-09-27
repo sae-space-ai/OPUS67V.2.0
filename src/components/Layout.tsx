@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { OpusLogo } from './OpusLogo';
 import { SpectralLine } from './SpectralLine';
+import { UserMenu } from './UserMenu';
 import {
   LayoutDashboard,
   Bot,
@@ -19,6 +20,7 @@ import {
   Shield,
   Landmark,
   Settings,
+  CreditCard,
   Menu,
   X,
   ChevronRight,
@@ -32,6 +34,7 @@ const navigation = [
   { name: 'Projects', href: '/projects', icon: FolderKanban },
   { name: 'Evidence', href: '/evidence', icon: Shield },
   { name: 'Governance', href: '/governance', icon: Landmark },
+  { name: 'Billing', href: '/billing', icon: CreditCard },
   { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
@@ -141,6 +144,7 @@ export function Layout() {
               <div className="w-1.5 h-1.5 rounded-full bg-amber status-pulse" />
               <span>Providers not configured</span>
             </div>
+            <UserMenu />
           </div>
         </header>
 
