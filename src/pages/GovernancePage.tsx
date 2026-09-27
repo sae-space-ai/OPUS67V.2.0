@@ -141,7 +141,295 @@ export function GovernancePage() {
           </ul>
         </div>
       </div>
+
+      {/* ====================================================== */}
+      {/* REGULATORY TRACEABILITY MATRIX                         */}
+      {/*                                                        */}
+      {/* Maps: REGULATION → REQUIREMENT → CONTROL → STATUS →    */}
+      {/*       EVIDENCE → HUMAN REVIEW → LAST REVIEW            */}
+      {/*                                                        */}
+      {/* Status values are VERIFIABLE, not aspirational:        */}
+      {/*   IMPLEMENTED | PARTIAL | PLANNED |                    */}
+      {/*   NOT APPLICABLE | REQUIRES ASSESSMENT                 */}
+      {/* ====================================================== */}
+      <div className="mt-12">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h3 className="text-sm font-medium text-opus-300 uppercase tracking-wider">
+              Regulatory Traceability Matrix
+            </h3>
+            <p className="text-xs text-opus-500 mt-1">
+              Each control is tracked with verifiable implementation status and evidence.
+            </p>
+          </div>
+        </div>
+
+        {/* Status legend */}
+        <div className="flex flex-wrap gap-2 mb-4 p-3 rounded-lg bg-opus-800/50 border border-opus-700">
+          <span className="text-[10px] text-opus-500 uppercase tracking-wider mr-2 self-center">Status:</span>
+          <span className="inline-flex items-center gap-1.5 text-[10px] text-emerald-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> IMPLEMENTED
+          </span>
+          <span className="inline-flex items-center gap-1.5 text-[10px] text-amber-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> PARTIAL
+          </span>
+          <span className="inline-flex items-center gap-1.5 text-[10px] text-blue-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-400" /> PLANNED
+          </span>
+          <span className="inline-flex items-center gap-1.5 text-[10px] text-opus-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-opus-400" /> NOT APPLICABLE
+          </span>
+          <span className="inline-flex items-center gap-1.5 text-[10px] text-purple-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-purple-400" /> REQUIRES ASSESSMENT
+          </span>
+        </div>
+
+        {/* Matrix table */}
+        <div className="overflow-x-auto rounded-xl border border-opus-700">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="bg-opus-800 border-b border-opus-700">
+                <th className="text-left px-4 py-3 font-semibold text-opus-300 uppercase tracking-wider">Regulation</th>
+                <th className="text-left px-4 py-3 font-semibold text-opus-300 uppercase tracking-wider">Requirement</th>
+                <th className="text-left px-4 py-3 font-semibold text-opus-300 uppercase tracking-wider">Control</th>
+                <th className="text-left px-4 py-3 font-semibold text-opus-300 uppercase tracking-wider">Status</th>
+                <th className="text-left px-4 py-3 font-semibold text-opus-300 uppercase tracking-wider">Evidence</th>
+                <th className="text-left px-4 py-3 font-semibold text-opus-300 uppercase tracking-wider">Human Review</th>
+                <th className="text-left px-4 py-3 font-semibold text-opus-300 uppercase tracking-wider">Last Review</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-opus-700">
+              {/* EU AI Act rows */}
+              <MatrixRow
+                regulation="EU AI Act"
+                requirement="Risk classification"
+                control="4-level risk taxonomy (minimal / limited / high / unacceptable)"
+                status="IMPLEMENTED"
+                evidence="Governance module · AI system registry"
+                humanReview="Required for high-risk systems"
+                lastReview="Architecture review — MVP"
+              />
+              <MatrixRow
+                regulation="EU AI Act"
+                requirement="Transparency obligations"
+                control="System documentation, model/provider disclosure"
+                status="PARTIAL"
+                evidence="Agent model/provider fields; technical docs pending"
+                humanReview="Planned — review workflow"
+                lastReview="MVP baseline"
+              />
+              <MatrixRow
+                regulation="EU AI Act"
+                requirement="Human oversight"
+                control="Human review records, override capability, audit trail"
+                status="PARTIAL"
+                evidence="Evidence status progression; approval requires review"
+                humanReview="Architecturally supported"
+                lastReview="MVP baseline"
+              />
+              <MatrixRow
+                regulation="EU AI Act"
+                requirement="Traceability & logging"
+                control="Audit events for all mutations with request correlation"
+                status="IMPLEMENTED"
+                evidence="AuditEvent entity · in-memory log (1000 events)"
+                humanReview="Automatic"
+                lastReview="MVP baseline"
+              />
+              <MatrixRow
+                regulation="EU AI Act"
+                requirement="Technical documentation"
+                control="System inventory, intended purpose, risk assessment"
+                status="PARTIAL"
+                evidence="AI system registry; full docs pending"
+                humanReview="Planned"
+                lastReview="MVP baseline"
+              />
+              <MatrixRow
+                regulation="EU AI Act"
+                requirement="Post-market monitoring"
+                control="Incident tracking, performance monitoring"
+                status="PLANNED"
+                evidence="Architecture prepared; not yet operational"
+                humanReview="Planned"
+                lastReview="—"
+              />
+              <MatrixRow
+                regulation="EU AI Act"
+                requirement="Prohibited practices"
+                control="Unacceptable-risk systems cannot be registered as approved"
+                status="IMPLEMENTED"
+                evidence="Status workflow prevents auto-approval"
+                humanReview="Required"
+                lastReview="MVP baseline"
+              />
+
+              {/* GDPR / RGPD rows */}
+              <MatrixRow
+                regulation="GDPR / RGPD"
+                requirement="Lawful basis"
+                control="Documented lawful basis per processing activity"
+                status="PLANNED"
+                evidence="Architecture prepared; documentation pending"
+                humanReview="Required"
+                lastReview="—"
+              />
+              <MatrixRow
+                regulation="GDPR / RGPD"
+                requirement="Data minimisation"
+                control="Only necessary data collected and stored"
+                status="PARTIAL"
+                evidence="Schema design follows minimisation; validation pending"
+                humanReview="Planned"
+                lastReview="MVP baseline"
+              />
+              <MatrixRow
+                regulation="GDPR / RGPD"
+                requirement="Purpose limitation"
+                control="Data used only for declared purposes"
+                status="PLANNED"
+                evidence="Architecture prepared"
+                humanReview="Required"
+                lastReview="—"
+              />
+              <MatrixRow
+                regulation="GDPR / RGPD"
+                requirement="Transparency"
+                control="Clear information to data subjects"
+                status="PLANNED"
+                evidence="Privacy notice pending"
+                humanReview="Required"
+                lastReview="—"
+              />
+              <MatrixRow
+                regulation="GDPR / RGPD"
+                requirement="Access control"
+                control="RBAC with role-based permissions"
+                status="PLANNED"
+                evidence="Role model designed (Owner/Admin/Operator/Reviewer/Viewer)"
+                humanReview="Required"
+                lastReview="—"
+              />
+              <MatrixRow
+                regulation="GDPR / RGPD"
+                requirement="Retention"
+                control="Defined retention periods with automatic deletion"
+                status="PLANNED"
+                evidence="Architecture prepared"
+                humanReview="Required"
+                lastReview="—"
+              />
+              <MatrixRow
+                regulation="GDPR / RGPD"
+                requirement="Data subject rights"
+                control="Access, rectification, erasure, portability"
+                status="PLANNED"
+                evidence="Architecture prepared"
+                humanReview="Required"
+                lastReview="—"
+              />
+              <MatrixRow
+                regulation="GDPR / RGPD"
+                requirement="Privacy by design / by default"
+                control="Privacy considered at architecture and defaults"
+                status="PARTIAL"
+                evidence="No secrets in client; server-only provider calls"
+                humanReview="Architecture review"
+                lastReview="MVP baseline"
+              />
+              <MatrixRow
+                regulation="GDPR / RGPD"
+                requirement="Security"
+                control="Input validation, secret protection, audit logging"
+                status="IMPLEMENTED"
+                evidence="Zod schemas; .env.example; audit log"
+                humanReview="Security review pending"
+                lastReview="MVP baseline"
+              />
+              <MatrixRow
+                regulation="GDPR / RGPD"
+                requirement="Accountability"
+                control="Documented compliance measures and evidence"
+                status="PARTIAL"
+                evidence="This matrix; governance module"
+                humanReview="Required"
+                lastReview="MVP baseline"
+              />
+            </tbody>
+          </table>
+        </div>
+
+        {/* Matrix disclaimer */}
+        <div className="mt-4 p-3 rounded-lg bg-opus-800/50 border border-opus-700">
+          <p className="text-[10px] text-opus-500 leading-relaxed">
+            <span className="font-semibold text-opus-400">Note:</span> Status values in this
+            matrix reflect the current verifiable state of OPUS67 as an MVP. "IMPLEMENTED"
+            indicates the control is architecturally present and operational. "PARTIAL"
+            indicates partial implementation requiring completion. "PLANNED" indicates the
+            control is designed but not yet operational. No status in this matrix should
+            be interpreted as certification or conformity assessment.
+          </p>
+        </div>
+      </div>
+
+      {/* Regulatory disclaimer */}
+      <div className="mt-8 p-4 rounded-lg bg-opus-800 border border-opus-700">
+        <p className="text-[11px] text-opus-500 leading-relaxed">
+          <span className="font-semibold text-opus-400">Regulatory disclaimer:</span>{' '}
+          References to the EU AI Act and GDPR/RGPD in this page describe the design and
+          governance framework adopted by OPUS67. They do not constitute certification,
+          endorsement or approval by the European Union, the European Commission or any
+          supervisory authority. Conformity assessment requires independent evaluation by
+          qualified entities according to applicable regulations.
+        </p>
+      </div>
     </div>
+  );
+}
+
+// ============================================================
+// Matrix Row Component
+// ============================================================
+
+function MatrixRow({
+  regulation,
+  requirement,
+  control,
+  status,
+  evidence,
+  humanReview,
+  lastReview,
+}: {
+  regulation: string;
+  requirement: string;
+  control: string;
+  status: 'IMPLEMENTED' | 'PARTIAL' | 'PLANNED' | 'NOT APPLICABLE' | 'REQUIRES ASSESSMENT';
+  evidence: string;
+  humanReview: string;
+  lastReview: string;
+}) {
+  const statusStyles: Record<string, string> = {
+    IMPLEMENTED: 'text-emerald-400 bg-emerald-400/10 border-emerald-400/20',
+    PARTIAL: 'text-amber-400 bg-amber-400/10 border-amber-400/20',
+    PLANNED: 'text-blue-400 bg-blue-400/10 border-blue-400/20',
+    'NOT APPLICABLE': 'text-opus-400 bg-opus-400/10 border-opus-400/20',
+    'REQUIRES ASSESSMENT': 'text-purple-400 bg-purple-400/10 border-purple-400/20',
+  };
+
+  return (
+    <tr className="hover:bg-opus-800/30 transition-colors">
+      <td className="px-4 py-3 text-opus-300 font-medium whitespace-nowrap">{regulation}</td>
+      <td className="px-4 py-3 text-opus-200">{requirement}</td>
+      <td className="px-4 py-3 text-opus-400 max-w-xs">{control}</td>
+      <td className="px-4 py-3">
+        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium border ${statusStyles[status]}`}>
+          {status}
+        </span>
+      </td>
+      <td className="px-4 py-3 text-opus-400 max-w-xs">{evidence}</td>
+      <td className="px-4 py-3 text-opus-400">{humanReview}</td>
+      <td className="px-4 py-3 text-opus-500 whitespace-nowrap">{lastReview}</td>
+    </tr>
   );
 }
 
